@@ -7,7 +7,7 @@
 #include <sys/types.h>
 #include <regex.h>
 #include "../head_h/File.h"
-#include "../head_h/Reponsehttp.h"
+#include "../head_h/ReadHtml.h"
 #define MAXN 1024+10
 
 char finall[1024]={0};
@@ -90,28 +90,28 @@ int httpMsgAnalyse(char *buf){
 }
 
 
-int urlAnalyse(char *buf){
-    int status;
-    int cflags=REG_EXTENDED;
-    regmatch_t pmatch[1];
-    const size_t nmatch=1;
-    regex_t  reg;
-
-    const char* pattern="(/\\w*){0,}/(\\w*)(\\.[A-Z a-z]* )|( /){1}";
-    //编译正则模式
-    regcomp(&reg,pattern,cflags);
-    //执行正则表达式和缓存的比较
-    status= regexec(&reg,buf,nmatch,pmatch,0);
-    //打印匹配的字符串
-    if (status == REG_NOMATCH) printf("No Match\n");
-    else if(status == 0) {
-        printf("Match:\n");
-        for (int i = pmatch[0].rm_so; i <pmatch[0].rm_eo ; ++i)
-            putchar(buf[i]);
-        printf("\n");
-    }
-    regfree(&reg);
-    return 0;
-}
+//int urlAnalyse(char *buf){
+//    int status;
+//    int cflags=REG_EXTENDED;
+//    regmatch_t pmatch[1];
+//    const size_t nmatch=1;
+//    regex_t  reg;
+//
+//    const char* pattern="(/\\w*){0,}/(\\w*)(\\.[A-Z a-z]* )|( /){1}";
+//    //编译正则模式
+//    regcomp(&reg,pattern,cflags);
+//    //执行正则表达式和缓存的比较
+//    status= regexec(&reg,buf,nmatch,pmatch,0);
+//    //打印匹配的字符串
+//    if (status == REG_NOMATCH) printf("No Match\n");
+//    else if(status == 0) {
+//        printf("Match:\n");
+//        for (int i = pmatch[0].rm_so; i <pmatch[0].rm_eo ; ++i)
+//            putchar(buf[i]);
+//        printf("\n");
+//    }
+//    regfree(&reg);
+//    return 0;
+//}
 
 

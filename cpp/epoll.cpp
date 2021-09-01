@@ -10,8 +10,8 @@
 #include <arpa/inet.h>
 #include "../head_h/File.h"
 #include "../head_h/Analyse.h"
-#include "../head_h/Reponsehttp.h"
-
+#include "../head_h/ReadHtml.h"
+#include "../head_h/File.h"
 #define FDSIZE        1024
 #define EPOLLEVENTS 20
 #define MAXSIZE     1024
@@ -67,6 +67,7 @@ void handle_eventsserver(int epollfd,struct epoll_event *events,int num,int list
 //        printf("i:%d\n",i);
 //        printf("num:%d\n",num);
         fd = events[i].data.fd;//event数组里面的fd和当前的sockedfd是否相同；
+
         /*根据描述符的类型和事件类型进行处理*/
         if ((fd == listenfd) &&(events[i].events & EPOLLIN)){
             printf("afterhandle:%s\n",buf);
@@ -111,7 +112,7 @@ void handle_accpet(int epollfd,int listenfd,char *buf){
 void do_readserver(int epollfd,int fd,char *buf){
     int nread;
     nread = read(fd,buf,MAXSIZE);//这里buf才会有东西，上面都没有
-
+    fprintf_buf(buf);
 //    printf("ahfnlks%s\n",buf);
     if (nread == -1){
         perror("read error:");
@@ -131,10 +132,12 @@ void do_readserver(int epollfd,int fd,char *buf){
 //            close(fd);
             delete_event(epollfd,fd,EPOLLIN);
         }else{
+
             fprintf_buf(buf);
 //        URL(buf);
             Analyse_two(buf);//解析http路径
             printf("read messag3e is : %s",buf);
+            fprintf_buf(buf);
             /*修改描述符对应的事件，由读改为写*/
             modify_event(epollfd,fd,EPOLLOUT);
 //        memset(buf,0,MAXSIZE);
@@ -144,10 +147,14 @@ void do_readserver(int epollfd,int fd,char *buf){
 
 void do_writeserver(int epollfd,int fd,char *buf){
     int nwrite;
-    char *a=Reponsehttp(buf);
+    char *a=readhtml(buf);//获取客户端想要访问读取出来的文件
+    fprintf_buf(buf);
     printf("write messag3e is : %s",a);
-    char *b=ResponseSpell(a);
+    char *b=ResponseSpell(a);//拼接报文
+    fprintf_buf(buf);
     printf("write messag3e is : %s",b);
+
+
     nwrite = write(fd,b,strlen(b));
     if (nwrite == -1){
         perror("write error:");

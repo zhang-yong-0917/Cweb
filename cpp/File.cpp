@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <pthread.h>
-#define PATH "/home/zy/桌面/urltext.txt"
-
+#define PATH "/home/zy/桌面/log.txt"
+#include "../head_h/Time.h"
 
 pthread_rwlock_t rwlock;
 char httpmsg[1024]={0};
@@ -25,7 +25,8 @@ int fprintf_port(char *ip,int port)
     return 0;
 }
 int fprintf_buf(char *buf)
-{ pthread_rwlock_wrlock(&rwlock);
+{
+    pthread_rwlock_wrlock(&rwlock);
     FILE *fb= fopen(PATH,"a+");
     if(fb == NULL)
     {
@@ -33,11 +34,13 @@ int fprintf_buf(char *buf)
         return 0;
     }
     fprintf(fb," %s\n",buf);
+    TimeFile(buf);//加上time
     fclose(fb);
     pthread_rwlock_unlock(&rwlock);
     return 0;
 }
-char *fscanf( char *finall){
+char *fscanf(char *finall){
+
     pthread_rwlock_rdlock(&rwlock);
     FILE *fp= fopen(PATH,"a+");;
     if(fp == NULL)
@@ -52,6 +55,8 @@ char *fscanf( char *finall){
         strcat(finall, httpmsg);
 //        p.rintf("%s",msg);
     }
+
+    TimeFile(finall);//加上time
     fclose(fp);
     pthread_rwlock_unlock(&rwlock);
     return finall;

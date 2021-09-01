@@ -7,6 +7,6 @@
 
 #endif //JIEXI_REPONSEHTTP_H
 
-extern char* Reponsehttp(char *buf);
+extern char* readhtml(char *buf);
 extern int path(char *buf);
 extern int fprintf_buf();

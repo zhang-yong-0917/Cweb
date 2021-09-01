@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include "time.h"
-#include "../head_h/TimeFile.h"
+#include "../head_h/Time.h"
 //
 // Created by zy on 2021/8/18.
 //
