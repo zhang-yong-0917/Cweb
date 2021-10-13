@@ -12,6 +12,9 @@
 #include "../head_h/Analyse.h"
 #include "../head_h/ReadHtml.h"
 #include "../head_h/File.h"
+#include "../head_h/spellresponse.h"
+#include "../head_h/servlet.h"
+
 #define FDSIZE        1024
 #define EPOLLEVENTS 20
 #define MAXSIZE     1024
@@ -70,20 +73,20 @@ void handle_eventsserver(int epollfd,struct epoll_event *events,int num,int list
 
         /*根据描述符的类型和事件类型进行处理*/
         if ((fd == listenfd) &&(events[i].events & EPOLLIN)){
-            printf("afterhandle:%s\n",buf);
+//            printf("afterhandle:%s\n",buf);
             handle_accpet(epollfd, listenfd, buf);
-            printf("beforhandle:%s\n",buf);
+//            printf("beforhandle:%s\n",buf);
         }
         else if (events[i].events & EPOLLIN){
-            printf("afterread:%s\n",buf);
+//            printf("afterread:%s\n",buf);
             do_readserver(epollfd,fd,buf);
-            printf("beforread:%s\n",buf);
+//            printf("beforread:%s\n",buf);
         }
 
         else if (events[i].events & EPOLLOUT){
-            printf("afterwrite:%s\n",buf);
+//            printf("afterwrite:%s\n",buf);
             do_writeserver(epollfd,fd,buf);
-            printf("beforwrite:%s\n",buf);
+//            printf("beforwrite:%s\n",buf);
         }
 
     }
@@ -136,7 +139,7 @@ void do_readserver(int epollfd,int fd,char *buf){
             fprintf_buf(buf);
 //        URL(buf);
             Analyse_two(buf);//解析http路径
-            printf("read messag3e is : %s",buf);
+            printf("获取到的html %s",buf);
             fprintf_buf(buf);
             /*修改描述符对应的事件，由读改为写*/
             modify_event(epollfd,fd,EPOLLOUT);
@@ -147,15 +150,26 @@ void do_readserver(int epollfd,int fd,char *buf){
 
 void do_writeserver(int epollfd,int fd,char *buf){
     int nwrite;
-    char *a=readhtml(buf);//获取客户端想要访问读取出来的文件
-    fprintf_buf(buf);
-    printf("write messag3e is : %s",a);
-    char *b=ResponseSpell(a);//拼接报文
-    fprintf_buf(buf);
-    printf("write messag3e is : %s",b);
+//    struct s_servlet c;
+    readhtml(buf);//获取客户端想要访问读取出来的文件
+
+//    c.httpresponse.body=a;
+//    sevlet_response(&c,RESPONSE_BODY);//传入response报文的body参数
+
+    fprintf_buf(buf);//日志
+
+//    printf("读取html : %s",a);
+
+    char reponse[10240];
+    char *b=ResponseSpell(reponse);//拼接报文
+    fprintf_buf(buf);//日志
+
+    printf("拼接报文: %s",b);
 
 
     nwrite = write(fd,b,strlen(b));
+//     b= nullptr;
+    do_clear();
     if (nwrite == -1){
         perror("write error:");
         close(fd);

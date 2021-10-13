@@ -9,4 +9,3 @@
 extern  int  filterFacicon(char *buf);
 extern  int Analyse();
 extern int Analyse_two(char* buf);
-extern char* ResponseSpell(char* buf);

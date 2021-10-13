@@ -15,6 +15,7 @@
 #include "../head_h/Analyse.h"
 #include "../head_h/File.h"
 #include "../head_h/epoll.h"
+#include "../head_h/servlet.h"
 #define MAXSIZE     1024
 #define IPADDRESS   "127.0.0.1"
 #define SERV_PORT   8080
@@ -32,10 +33,26 @@
 int socket_bind(const char* ip,int port);
 
 int serverepoll(){
-    
+
+
     int  listenfd;
     listenfd = socket_bind(IPADDRESS,SERV_PORT);
-    listen(listenfd,LISTENQ);
+    listen(listenfd,LISTENQ);//listen进行了进入内核三次握手，之后又返回出来。
+//c语言想要广播，得自己去配置。
+
+    struct s_servlet a;
+//    a.httpresponse.status="200";
+//    a.httpresponse.ContentType="text/html;charset=UTF-8";
+    a.httpresponse.body="error！";
+    a.httpresponse.location="index.html";
+    a.httpresponse.cookie="a-a=zhans-gan";
+//
+//    init();
+//    sevlet_response(&a,RESPONSE_STATUS);
+    sevlet_response(&a,RESPONSE_BODY);
+//    sevlet_response(&a,RESPONSE_CONTENTTYPE);
+    sevlet_response(&a,RESPONSE_LOCATION);
+    sevlet_response(&a,RESPONSE_COOKIE);
     do_epoll(listenfd);
     return 0;
 }
@@ -48,6 +65,7 @@ int socket_bind(const char* ip,int port){
         perror("socket error:");
         exit(1);
     }
+
     bzero(&servaddr,sizeof(servaddr));
     servaddr.sin_family = AF_INET;
     inet_pton(AF_INET,ip,&servaddr.sin_addr);
