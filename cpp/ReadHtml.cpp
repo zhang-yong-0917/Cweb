@@ -26,7 +26,7 @@ int ResetPath()//将路径重置
 }
 char *fscanf_Reponse(char *finall)//读取路径中的数据转换为字节流
 {
-    struct s_servlet body;
+
 //    int flag= strcmp(Path,"/home/zy/桌面/Test.html");
 ////    pthread_rwlock_rdlock(&rwlock_reponse);
 ////    printf("aaaa%s\n",Path);
@@ -38,13 +38,10 @@ char *fscanf_Reponse(char *finall)//读取路径中的数据转换为字节流
     FILE *fp_reponse= fopen(Path,"r");
     if(fp_reponse == NULL)
     {
-        body.httpresponse.status="404";
-        body.httpresponse.ContentType="text/html;charset=UTF-8";
-        body.httpresponse.body="该资源不存在";
-        sevlet_response(&body, RESPONSE_STATUS);
-        sevlet_response(&body,RESPONSE_BODY);
-        sevlet_response(&body,RESPONSE_CONTENTTYPE);
 
+        response_content_type("text/html;charset=UTF-8");
+        response_status("404");
+        response_body("该资源不存在");
         printf("该文件不存在!\n");
         return 0;
     }
@@ -55,9 +52,7 @@ char *fscanf_Reponse(char *finall)//读取路径中的数据转换为字节流
         strcat(finall, httpmsg_reponse);
 //        p.rintf("%s",msg);
     }
-
-    body.httpresponse.body=finall;
-    sevlet_response(&body,RESPONSE_BODY);
+    response_body(finall);//将读取到的html传下去，组成报文
 
     fclose(fp_reponse);
     ResetPath();

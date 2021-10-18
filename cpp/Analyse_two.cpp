@@ -19,6 +19,7 @@ int Analyse_two(char *buf){
     const char* pattern="(/\\w*){0,}/(\\w*)(.html)|(/\\w*)(.html)|( / ){1}";
     //编译正则模式
     regcomp(&reg,pattern,cflags);
+
     //执行正则表达式和缓存的比较
     status= regexec(&reg,buf,nmatch,pmatch,0);
     //打印匹配的字符串
@@ -26,6 +27,7 @@ int Analyse_two(char *buf){
     else if(status == 0) {
         printf("Match:\n");
         int t=0;
+
         for (int i = pmatch[0].rm_so; i <pmatch[0].rm_eo ; ++i){
             if (buf[i]==' '){
                 ++t;

@@ -15,8 +15,10 @@ char* Date(char* date){
     timeinfo = localtime ( &rawtime );
 char buffer[128]={0};
     strftime(buffer,sizeof (buffer),"%a %F %X GMT\n",timeinfo);
-    printf("%s",buffer);
+//    printf("%s",buffer);
+    strcat(date,"Date: ");
     strcat(date,buffer);
+//    printf("%s",buffer);
     return date;
 }
 

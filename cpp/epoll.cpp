@@ -86,6 +86,7 @@ void handle_eventsserver(int epollfd,struct epoll_event *events,int num,int list
         else if (events[i].events & EPOLLOUT){
 //            printf("afterwrite:%s\n",buf);
             do_writeserver(epollfd,fd,buf);
+//            close(listenfd);
 //            printf("beforwrite:%s\n",buf);
         }
 
@@ -139,11 +140,12 @@ void do_readserver(int epollfd,int fd,char *buf){
             fprintf_buf(buf);
 //        URL(buf);
             Analyse_two(buf);//解析http路径
-            printf("获取到的html %s",buf);
+            printf("获取到的html %s",buf);//
             fprintf_buf(buf);
             /*修改描述符对应的事件，由读改为写*/
             modify_event(epollfd,fd,EPOLLOUT);
 //        memset(buf,0,MAXSIZE);
+
         }
     }
 }

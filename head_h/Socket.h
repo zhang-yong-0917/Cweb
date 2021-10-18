@@ -7,5 +7,5 @@
 
 #endif //JIEXI_SOCKET_H
 extern int server1();
-extern int client1();
+extern int redis();
 extern  int serverepoll();
