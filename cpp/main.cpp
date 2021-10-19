@@ -19,18 +19,19 @@ int main() {
 //    open(a, nullptr, nullptr);
 
 //    redis();
-    response_cookie_maxage("20");
-    response_cookie("zhansgan","sdasd");
-    response_cookie_path("/a/b/c/d");
-    response_cookie_domain("./aioofjao");
-
-    response_location("http:localhost:8080/asdadx");
-    response_status("200");
-    response_content_type("text/html;charset=UTF-8");
-    response_body("adahsdkajvbdaiusoajio");
-    cookie_end();
+//    response_cookie_maxage("20");
+//    response_cookie("zhansgan","sdasd");
+//    response_cookie_path("/a/b/c/d");
+//    response_cookie_domain("./aioofjao");
+//
+//    response_location("http:localhost:8080/asdadx");
+//    response_status("200");
+//    response_content_type("text/html;charset=UTF-8");
+//    response_body("adahsdkajvbdaiusoajio");
+//    cookie_end();
 
     serverepoll();
+
 //    /* 线程池初始化，其管理者线程及工作线程都会启动 */
 //    threadpool_t *thp = threadpool_create(10, 100, 100);
 //    printf("threadpool init ... ... \n");
