@@ -1,0 +1,3 @@
+session:可以通过cookie存在文件或者数据库来实现，或者url重写来实现（也就是当连接过来通过拦截器将本次链接重定向一个新的链接）。
+session 的存储： session(这里返回给浏览器)     id（存在Redis）       password（存在Redis）
+sessionid的创建：session在访问tomcat服务器HttpServletRequest的getSession(true)的时候创建，tomcat的ManagerBase类提供创建sessionid的方法：随机数+时间+jvmid；
