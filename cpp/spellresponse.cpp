@@ -19,8 +19,9 @@ void set_body( char *__rps);
 void set_ContentType(char *__rps);
 void set_cookie( char *__rps);
 void set_location(char *__rps);
-
+void  do_init();
 char* do_spell(char* reponse);
+
 char * ResponseSpell(char* buf){
     memset(buf,0,sizeof (buf));
 

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <pthread.h>
-#define PATH "/home/zy/桌面/log.txt"
+#define  PATH "/home/zy/桌面/log.txt"
 #include "../head_h/Time.h"
 
 pthread_rwlock_t rwlock;

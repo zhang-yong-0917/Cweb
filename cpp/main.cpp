@@ -32,6 +32,15 @@ int main() {
 
     serverepoll();
 
+    printf("aa %s\n",request_method());
+    printf("aa %s\n",request_accept());
+    printf("aa %s\n",request_addr());
+    printf("aa %s\n",request_port());
+    printf("aa %s\n",request_host());
+    printf("aa %s\n",request_protocol());
+    printf("aa %s\n",requset_url());
+
+
 //    /* 线程池初始化，其管理者线程及工作线程都会启动 */
 //    threadpool_t *thp = threadpool_create(10, 100, 100);
 //    printf("threadpool init ... ... \n");

@@ -40,6 +40,7 @@ void do_epoll(int listenfd){
     struct epoll_event events[EPOLLEVENTS];
     int ret;
 
+
     memset(buf,0,MAXSIZE);
     /*创建一个描述符*/
     epollfd = epoll_create(FDSIZE);//该函数生成一个epoll专用的文件描述符，其中的参数是指定生成描述符的最大范围
@@ -139,7 +140,7 @@ void do_readserver(int epollfd,int fd,char *buf){
 
             fprintf_buf(buf);
 //        URL(buf);
-            Analyse_two(buf);//解析http路径
+            analyse_request(buf);//解析http路径
             printf("获取到的html %s",buf);//
             fprintf_buf(buf);
             /*修改描述符对应的事件，由读改为写*/
@@ -153,6 +154,7 @@ void do_readserver(int epollfd,int fd,char *buf){
 void do_writeserver(int epollfd,int fd,char *buf){
     int nwrite;
 //    struct s_servlet c;
+    do_init();//初始化html报文
     readhtml(buf);//获取客户端想要访问读取出来的文件
 
 //    c.httpresponse.body=a;
@@ -163,6 +165,7 @@ void do_writeserver(int epollfd,int fd,char *buf){
 //    printf("读取html : %s",a);
 
     char reponse[10240];
+
     char *b=ResponseSpell(reponse);//拼接报文
     fprintf_buf(buf);//日志
 

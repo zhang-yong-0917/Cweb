@@ -14,3 +14,16 @@ int response_cookie_maxage(char* maxtime);
 int response_cookie_domain(char* domain );
 int response_location(char *location);
 int cookie_end();
+////////////////////////
+char* request_cookies();
+char* request_method();
+char* request_accept();
+char* request_parameter();
+char* request_addr();
+char* request_port();
+char* request_host();
+char* request_protocol();
+char* request_session_id();
+char* request_session();
+char* requset_url();
+char* request_dispatcher();
