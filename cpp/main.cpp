@@ -5,13 +5,23 @@
 #include "../head_h/threadpool.h"
 #include <stdio.h>
 #include "../head_h/servlet.h"
+#include "../head_h/MyController.h"
 //void *func(void * arg){
 //    char *a= (char*)arg;
 //    printf("thread %s\n",a);
 //    return NULL;
 //}
-
+int a() {
+    printf("sahuodalkd\n");
+}
+int c(){
+    printf("sauihduiagyud%s\n",requset_url());
+}
 int main() {
+    RequestMapping("/login", reinterpret_cast<void *(*)(void *)>(a), NULL);
+    RequestMapping("/aaa", reinterpret_cast<void *(*)(void *)>(c), NULL);
+
+    serverepoll();
 //    char a[]="http://127.0.0.1:8080/index.jsp";
 //    URL(a);
 //    Analyse();
@@ -30,7 +40,9 @@ int main() {
 //    response_body("adahsdkajvbdaiusoajio");
 //    cookie_end();
 
-    serverepoll();
+
+
+
 
     printf("aa %s\n",request_method());
     printf("aa %s\n",request_accept());

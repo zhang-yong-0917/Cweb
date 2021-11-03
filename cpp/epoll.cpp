@@ -152,6 +152,12 @@ void do_readserver(int epollfd,int fd,char *buf){
 }
 
 void do_writeserver(int epollfd,int fd,char *buf){
+    //处理http请求
+    /**
+     *
+     *
+     *
+     * */
     int nwrite;
 //    struct s_servlet c;
     do_init();//初始化html报文

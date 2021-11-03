@@ -1,3 +1,5 @@
+#include "Analyse.h"
+
 #ifndef JIEXI_SERVLET_H
 #define JIEXI_SERVLET_H
 
@@ -15,6 +17,7 @@ int response_cookie_domain(char* domain );
 int response_location(char *location);
 int cookie_end();
 ////////////////////////
+char* request_save(request* request);
 char* request_cookies();
 char* request_method();
 char* request_accept();

@@ -15,7 +15,7 @@
 
 struct s_http_request{
 
-};// request 的结构体
+};// request_src 的结构体
 
 struct  s_http_response{
     char* status= nullptr;

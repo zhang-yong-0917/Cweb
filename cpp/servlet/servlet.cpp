@@ -93,7 +93,8 @@ int response_cookie(char* k,char*v){
 char swap[3072]={0};
 int cookie_tail_all(char* cookie){
         strcat(swap,cookie);
-}
+}//保证除了name和value，其余参数的位置正确
+
 int cookie_end(){
 
     strcat(cookie,swap);
@@ -140,41 +141,46 @@ int response_cookie_domain(char* domain ){
 
 
 //////////////////////////////////////////////////////Request
-struct request _request;
+struct request request_src;
+
+char* request_save(request* request){
+request_src=*request;
+
+}
 //获取所有的cookie,存在数组里面
 char* request_cookies(){
 
 }
 //返回请求使用的http的方法，如：get，post，put等
 char* request_method(){
-    return _request.method;
+    return request_src.method;
 }
 //获取Accept里面的内容，包含：text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,
 char* request_accept(){
-    return _request.accept;
+    return request_src.accept;
 }
 //接收页面提交的 参数，主要有表单提交的参数、URL重写传递的参数（http://item.jsp?id=1中的id值）等
 char* request_parameter(){
-    return _request.parament;
+    return request_src.parament;
 }
 //获取发送请求着的ip地址，如：127.0.0.1
 char* request_addr(){
-    return _request.addr;
+    return request_src.addr;
 }
 
 //获取发送请求者的端口号，如：8080
 char* request_port(){
-    return _request.port;
+    return request_src.port;
 }
 
 //获取发送请求者的主机名称：Host: localhost:8080
 char* request_host(){
-    return _request.host;
+    return request_src.host;
 }
 
-//获取这个请求所用的协议
+//获取这个请求所用的协议，如HTTP/1.1
 char* request_protocol(){
-    return _request.protocol;
+    return request_src.protocol;
 }
 
 //返回这个请求对应的SessionId
@@ -187,5 +193,5 @@ char* request_session(){
 }
 //返回请求的url中的资源部分，如:一个请求通过 /catalog/books?id=1这样的URL路径访问，这个方法将返回/catalog/books。
 char* requset_url(){
-    return _request.url;
+    return request_src.url;
 }

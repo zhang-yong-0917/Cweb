@@ -5,8 +5,13 @@
 #ifndef JIEXI_ANALYSE_H
 #define JIEXI_ANALYSE_H
 
-#endif //JIEXI_ANALYSE_H
-struct request{
+
+typedef struct attribute{
+    char * key;
+    void * value;
+}Attribute;
+
+typedef struct request{
     char* method= nullptr;
     char* cookie= nullptr;
     char* accept= nullptr;
@@ -20,12 +25,16 @@ struct request{
     char* session_id= nullptr;
     char* accept_encoding= nullptr;
     char* accept_language= nullptr;
+    Attribute * attributes[20];
+}Request;
 
- };
 extern  int  filterFacicon(char *buf);
 extern  int Analyse();
-extern int Analyse_two(char* buf);
-extern  int analyse_request(char* request);
+//extern void Analyse_two(struct request_src request);
+extern  int analyse_request(char* request_msg);
+
+#endif //JIEXI_ANALYSE_H
+
 
 //request报文
 //GET /login.html HTTP/1.1
