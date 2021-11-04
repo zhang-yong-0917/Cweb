@@ -1,10 +1,11 @@
 //
 // Created by zy on 2021/8/22.
 //
-#include <cstring>
+//#include <cstring>
 #include <stdio.h>
 #include <sys/types.h>
 #include <regex.h>
+#include <cstring>
 #include "../head_h/Analyse.h"
 #include "../head_h/do_analyse.h"
 
